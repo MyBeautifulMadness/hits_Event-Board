@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
     @EntityGraph(attributePaths = {"company", "createdBy"})
-    Page<Event> findByStartsAfter(Instant now, Pageable pageable);
+    Page<Event> findByStartTime(LocalDateTime now, Pageable pageable);
 
     List<Event> findByCompanyId(Long companyId);
 }

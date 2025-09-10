@@ -54,6 +54,14 @@ public class UserService {
         return u;
     }
 
+    @Transactional
+    public User rejectUser(Long userId, String reason) {
+        User u = users.findById(userId).orElseThrow();
+        u.setStatus(AccountStatus.REJECTED);
+        u.setRejectionReason(reason);
+        return u;
+    }
+
     public Optional<User> getByUsername(@NonNull String username) {
         return users.findByUsername(username)
                 .filter(user -> username.equals(user.getUsername()));

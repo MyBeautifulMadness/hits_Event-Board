@@ -13,6 +13,7 @@ public class UserResponse {
     private AccountStatus status;
     private Long companyId;
     private String company;
+    private String rejectionReason;
 
     public static UserResponse from(User user) {
         UserResponse dto = new UserResponse();
@@ -24,6 +25,7 @@ public class UserResponse {
             dto.setCompanyId(user.getCompany().getId());
             dto.setCompany(user.getCompany().getName());
         }
+        dto.setRejectionReason(user.getRejectionReason());
         return dto;
     }
 }

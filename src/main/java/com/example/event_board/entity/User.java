@@ -42,4 +42,6 @@ public class User {
     @JoinColumn(name="company_id")
     private Company company;
 
+    @Column(name="rejection_reason", length = 128)
+    private String rejectionReason;
 }

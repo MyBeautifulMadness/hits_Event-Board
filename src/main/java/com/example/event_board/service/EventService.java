@@ -27,7 +27,7 @@ public class EventService {
     private final EventRegistrationRepository regs;
 
     public Page<Event> listFutureEvents(int page, int size) {
-        return events.findByStartsAfter(Instant.now(),
+        return events.findByStartTime(LocalDateTime.now(),
                 PageRequest.of(page, size, Sort.by("start_time").ascending()));
     }
 
@@ -49,6 +49,12 @@ public class EventService {
                 .createdBy(manager)
                 .build();
         return events.save(e);
+    }
+
+    @Transactional
+    public Event getEventById(Long eventId) {
+        return events.findById(eventId)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found: " + eventId));
     }
 
     @Transactional
@@ -74,7 +80,6 @@ public class EventService {
         events.delete(e);
     }
 
-    /** Мгновенная запись без статусов */
     @Transactional
     public void registerStudent(Long eventId, Long studentId) {
         Event e = events.findById(eventId).orElseThrow();
@@ -84,8 +89,8 @@ public class EventService {
             throw new IllegalStateException("Student not approved");
         if (e.getSignupDeadline() != null && LocalDateTime.now().isAfter(e.getSignupDeadline()))
             throw new IllegalStateException("Registration deadline passed");
-        //if (regs.existsByEventIdAndStudentId(eventId, studentId))
-        //    throw new IllegalStateException("Already registered");
+        if (regs.existsByEventIdAndStudentId(eventId, studentId))
+           throw new IllegalStateException("Already registered");
 
         EventRegistration r = EventRegistration.builder()
                 .event(e)
