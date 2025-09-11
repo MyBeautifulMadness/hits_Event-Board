@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
     @EntityGraph(attributePaths = {"company", "createdBy"})
-    Page<Event> findByStartTime(LocalDateTime now, Pageable pageable);
+    Page<Event> findByStartTimeAfter(LocalDateTime now, Pageable pageable);
 
     List<Event> findByCompanyId(Long companyId);
 }

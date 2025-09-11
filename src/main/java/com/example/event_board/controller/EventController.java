@@ -36,7 +36,7 @@ public class EventController {
         return ResponseEntity.ok(EventResponse.from(e));
     }
 
-    @PreAuthorize("hasAuthority('MANAGER')")
+    //@PreAuthorize("hasAuthority('MANAGER')")
     @GetMapping("/{id}")
     public ResponseEntity<EventResponse> getById(@PathVariable Long id) {
         var event = eventService.getEventById(id);

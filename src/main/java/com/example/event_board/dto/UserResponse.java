@@ -11,6 +11,7 @@ public class UserResponse {
     private String username;
     private UserRole role;
     private AccountStatus status;
+    private String telegramId;
     private Long companyId;
     private String company;
     private String rejectionReason;
@@ -21,6 +22,7 @@ public class UserResponse {
         dto.setUsername(user.getUsername());
         dto.setRole(user.getRole());
         dto.setStatus(user.getStatus());
+        dto.setTelegramId(user.getTelegramId());
         if (user.getCompany() != null) {
             dto.setCompanyId(user.getCompany().getId());
             dto.setCompany(user.getCompany().getName());

@@ -27,8 +27,8 @@ public class EventService {
     private final EventRegistrationRepository regs;
 
     public Page<Event> listFutureEvents(int page, int size) {
-        return events.findByStartTime(LocalDateTime.now(),
-                PageRequest.of(page, size, Sort.by("start_time").ascending()));
+        return events.findByStartTimeAfter(LocalDateTime.now(),
+                PageRequest.of(page, size, Sort.by("startTime").ascending()));
     }
 
     @Transactional
