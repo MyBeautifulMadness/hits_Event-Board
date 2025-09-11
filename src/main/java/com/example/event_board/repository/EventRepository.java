@@ -15,4 +15,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findByStartTimeAfter(LocalDateTime now, Pageable pageable);
 
     List<Event> findByCompanyId(Long companyId);
+
+    List<Event> findByCreatedBy_Id(Long userId);
 }

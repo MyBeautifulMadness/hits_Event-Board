@@ -1,0 +1,4 @@
+telegram:
+  bot:
+    username: partner_events_bot
+    token: ${TELEGRAM_BOT_TOKEN}
